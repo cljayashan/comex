@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@*<h2>Upload &amp; Compare Excel Data</h2>*@
+
+<div class="container-fluid" style="padding-top:30px;">
+    @using (Html.BeginForm("Index", "Comp", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="row">
+            <div class="col-md-4">
+                <p>SelectFile 1</p>
+            </div>
+            <div class="col-md-8">
+                <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" id="file1" name="file1" class="form-control" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <p>SelectFile 1</p>
+            </div>
+            <div class="col-md-8">
+                <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" id="file2" name="file2" class="form-control" />
+            </div>
+        </div>
+        <div class="row" style="padding-top:15px;align-items:center">
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Upload &amp; Compare</button>
+            </div>
+        </div>
+    }
+</div>
+
+@{
+    Dictionary<string, string> result = new Dictionary<string, string>();
+    result = (Dictionary<string, string>)ViewBag.Result;
+    <div style="padding-top:30px;">
+        <table border="1" class="table">
+
+            <tr>
+                <th>
+                    No
+                </th>
+                <th>
+                    Row &amp; Column
+                </th>
+                <th>
+                    Comparison
+                </th>
+            </tr>
+
+            @if (result != null)
+            {
+                int c = 1;
+                foreach (var item in result)
+                {
+                    <tr>
+                        <td>
+                            @c
+                        </td>
+                        <td>
+                            @item.Key
+                        </td>
+                        <td>
+                            @item.Value
+                        </td>
+                    </tr>
+                    c++;
+                }
+            }
+
+        </table>
+    </div>
+}
